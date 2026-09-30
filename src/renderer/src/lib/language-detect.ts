@@ -126,7 +126,17 @@ const FILENAME_TO_LANGUAGE: Record<string, string> = {
   '.env': 'ini',
   '.env.local': 'ini',
   '.env.development': 'ini',
-  '.env.production': 'ini'
+  '.env.production': 'ini',
+  '.bashrc': 'shell',
+  '.bash_profile': 'shell',
+  '.bash_login': 'shell',
+  '.bash_logout': 'shell',
+  '.profile': 'shell',
+  '.zshrc': 'shell',
+  '.zshenv': 'shell',
+  '.zprofile': 'shell',
+  '.zlogin': 'shell',
+  '.zlogout': 'shell'
 }
 
 export function detectLanguage(filePath: string): string {

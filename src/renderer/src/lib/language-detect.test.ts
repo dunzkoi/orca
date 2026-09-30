@@ -177,4 +177,13 @@ describe('detectLanguage', () => {
   ])('detects dotenv names without overriding specific mappings: %s', (filePath, expected) => {
     expect(detectLanguage(filePath)).toBe(expected)
   })
+
+  it.each([
+    ['/Users/me/.zshrc', 'shell'],
+    ['/home/me/.bashrc', 'shell'],
+    ['C:\\Users\\me\\.bash_profile', 'shell'],
+    ['/home/me/.profile', 'shell']
+  ])('maps shell startup dotfiles to shell: %s', (filePath, expected) => {
+    expect(detectLanguage(filePath)).toBe(expected)
+  })
 })
