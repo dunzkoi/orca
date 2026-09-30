@@ -139,12 +139,21 @@ const FILENAME_TO_LANGUAGE: Record<string, string> = {
   '.zlogout': 'shell'
 }
 
+// Exact match wins; lowercase map covers case-insensitive filesystems.
+const FILENAME_LOWER_TO_LANGUAGE: Record<string, string> = Object.fromEntries(
+  Object.entries(FILENAME_TO_LANGUAGE).map(([name, language]) => [name.toLowerCase(), language])
+)
+
 export function detectLanguage(filePath: string): string {
   // Check exact filename first
   const parts = filePath.split(/[\\/]/)
   const filename = parts.at(-1)!
   if (Object.hasOwn(FILENAME_TO_LANGUAGE, filename)) {
     return FILENAME_TO_LANGUAGE[filename]
+  }
+  const lowerFilename = filename.toLowerCase()
+  if (Object.hasOwn(FILENAME_LOWER_TO_LANGUAGE, lowerFilename)) {
+    return FILENAME_LOWER_TO_LANGUAGE[lowerFilename]
   }
 
   // Check extension
